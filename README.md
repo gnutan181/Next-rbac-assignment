@@ -16,13 +16,21 @@ A full-stack Next.js application with Role-Based Access Control (RBAC) using Nex
 1. Clone the repository:
 
 git clone git clone https://github.com/gnutan181/Next-rbac-assignment
+### change directory
+
 cd nextjs-rbac
+### npm install
+
 npm install
 
 add .env File
-
+###
 npm run prisma:generate
+###
+
 npm run prisma:migrate
+###
+
 npm run prisma:seed
 
 npm run dev
