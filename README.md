@@ -30,6 +30,8 @@ npm run dev
 #### Seed Users
 The database comes pre-seeded with two test accounts:
 
-Email	           Password	     Role
-admin@example.com	password123	ADMIN
-user@example.com	password123	USER
+#### admin
+admin@example.com	password123	
+
+#### user
+user@example.com	password123	
