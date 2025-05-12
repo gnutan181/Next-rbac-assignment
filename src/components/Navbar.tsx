@@ -3,6 +3,7 @@
 
 import Link from 'next/link';
 import {  signOut } from 'next-auth/react';
+import { useUser } from '@/context/UserContext';
 // import { User } from '@prisma/client';
 interface NavbarProps {
   user?: {
@@ -12,14 +13,15 @@ interface NavbarProps {
   children?: React.ReactNode; // Add children to the props
 }
 export default function Navbar({ user, children }: NavbarProps) {
+  const { newName } = useUser();
 
   return (
     <nav className="bg-white shadow-sm">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <div className="flex space-x-4">
-          <Link href="/" className="font-medium text-gray-700 hover:text-indigo-600">
+          {/* <Link href="/" className="font-medium text-gray-700 hover:text-indigo-600">
             Home
-          </Link>
+          </Link> */}
           {user && (
             <>
               <Link
@@ -57,7 +59,7 @@ export default function Navbar({ user, children }: NavbarProps) {
           {user ? (
             <>
               <span className="text-sm text-gray-500">
-                Hello, {user?.name} ({user?.role})
+                Hello, {newName} ({user?.role})
               </span>
               <button
                 onClick={() => signOut()}

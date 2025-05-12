@@ -22,14 +22,20 @@ export default function LoginPage() {
         password,
         redirect: false
       });
-console.log(result)
+console.log(result, 'result');
       if (result?.error) {
+        console.log("wefv")
         setError(result.error);
       } else {
+        console.log('wef')
         router.push('/articles');
       }
-    } catch (err) {
-      setError('An error occurred. Please try again.');
+    }catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'An error occurred. Please try again.');
+      } else {
+        setError('An unknown error occurred. Please try again.');
+      }
     }
   };
 
@@ -81,7 +87,7 @@ console.log(result)
         </form>
         <div className="text-center">
           <p className="text-sm text-gray-600">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link href="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
               Register
             </Link>

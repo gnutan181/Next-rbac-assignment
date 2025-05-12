@@ -1,20 +1,14 @@
-// // import Image from "next/image";
-// // import { Geist, Geist_Mono } from "next/font/google";
-import Navbar from "@/components/Navbar";
 
-// // const geistSans = Geist({
-// //   variable: "--font-geist-sans",
-// //   subsets: ["latin"],
-// // });
+import LoginPage from "@/app/login/page";
+// import Navbar from "@/components/Navbar";
+// import { useEffect } from "react";
 
-// // const geistMono = Geist_Mono({
-// //   variable: "--font-geist-mono",
-// //   subsets: ["latin"],
-// // });
+
 
 export default function Home() {
+  // useEffect(()=>user(), [user])
   return (
-  <Navbar />
+  <LoginPage />
   );
 }
 

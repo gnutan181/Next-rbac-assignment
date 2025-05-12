@@ -21,7 +21,10 @@ export default async function AdminArticlesPage() {
     },
     orderBy: { createdAt: 'desc' },
   });
-
+  // const formattedArticles = articles.map((article) => ({
+  //   ...article,
+  //   createdAt: new Date(article.createdAt).toISOString(),
+  // }));
   return (
     <Navbar user={user}>
       
@@ -32,12 +35,12 @@ export default async function AdminArticlesPage() {
           <div key={article.id} className="bg-white shadow rounded-lg p-4">
             <h2 className="text-xl font-semibold">{article.title}</h2>
             <p className="text-gray-500 text-sm mt-1">
-              By {article.author.name} ({article.author.email})
+              By {article?.author?.name} ({article?.author?.email})
             </p>
             <p className="text-gray-500 text-sm">
-              Created on {new Date(article.createdAt).toLocaleDateString()}
+              Created on {new Date(article?.createdAt).toLocaleDateString()}
             </p>
-            <p className="mt-2">{article.content.substring(0, 200)}...</p>
+            <p className="mt-2">{article?.content.substring(0, 200)}...</p>
           </div>
         ))}
       </div>

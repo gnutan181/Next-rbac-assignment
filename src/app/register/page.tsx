@@ -32,8 +32,12 @@ export default function RegisterPage() {
       }
 
       router.push('/login');
-    } catch (err: any) {
-      setError(err.message || 'An error occurred. Please try again.');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'An error occurred. Please try again.');
+      } else {
+        setError('An unknown error occurred. Please try again.');
+      }
     }
   };
 

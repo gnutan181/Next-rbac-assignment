@@ -1,12 +1,14 @@
 // src/app/profile/ProfileForm.tsx
 'use client';
 
+import { useUser } from '@/context/UserContext';
 import { User } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function ProfileForm({ user }: { user: User }) {
-  const [name, setName] = useState(user.name);
+  const { newName, setNewName } = useUser();
+  const [name, setName] = useState(newName);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
@@ -28,13 +30,18 @@ export default function ProfileForm({ user }: { user: User }) {
       if (!response.ok) {
         throw new Error('Failed to update profile');
       }
-
+     setNewName(name);
       router.refresh();
-    } catch (err) {
-      setError('Failed to update profile. Please try again.');
+    }catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'An error occurred. Please try again.');
+      } else {
+        setError('An unknown error occurred. Please try again.');
+      }
     } finally {
       setIsSubmitting(false);
     }
+    
   };
 
   return (

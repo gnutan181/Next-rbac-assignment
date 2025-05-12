@@ -2,10 +2,12 @@
 // import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import Navbar from '@/components/Navbar';
-import { SessionProvider } from 'next-auth/react';
-import { getCurrentUser } from '@/lib/auth';
+// import Navbar from '@/components/Navbar';
+// import { SessionProvider } from 'next-auth/react';
+// import { getCurrentUser } from '@/lib/auth';
 import "../styles/globals.css";
+import { UserProvider } from '@/context/UserContext';
+// import Navbar from '@/components/Navbar';
 const inter = Inter({ subsets: ['latin'] });
 
 
@@ -19,15 +21,17 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getCurrentUser();
+  
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <Navbar user={user} /> */}
         <main className="container mx-auto px-4 py-8">  
-          {/* <Navbar  user={user}/> */}
+    <UserProvider>
+      {/* <Navbar /> */}
           {children}
+          </UserProvider>
+
      </main>
       </body>
     </html>
