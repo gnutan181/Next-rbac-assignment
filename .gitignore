@@ -20,7 +20,7 @@
 # Environment variables
 .env*
 !.env.example
-
+README.md
 # Database
 /prisma/migrations/
 /prisma/*.db
