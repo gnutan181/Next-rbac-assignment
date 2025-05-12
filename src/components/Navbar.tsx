@@ -14,6 +14,8 @@ interface NavbarProps {
 }
 export default function Navbar({ user, children }: NavbarProps) {
   const { newName } = useUser();
+  console.log(user)
+  console.log("wd",user?.name,newName)
 
   return (
     <nav className="bg-white shadow-sm">

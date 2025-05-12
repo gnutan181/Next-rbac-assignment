@@ -7,8 +7,10 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function ProfileForm({ user }: { user: User }) {
+  console.log(user, 'user in form');
   const { newName, setNewName } = useUser();
-  const [name, setName] = useState(newName);
+  console.log(newName, 'newName');
+  const [name, setName] = useState(user?.name);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
@@ -43,7 +45,7 @@ export default function ProfileForm({ user }: { user: User }) {
     }
     
   };
-
+console.log(name,"wd",user.name,newName)
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
