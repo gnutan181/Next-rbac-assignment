@@ -3,7 +3,7 @@ import NextAuth,{SessionStrategy} from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { PrismaClient } from '@prisma/client';
 import { compare } from 'bcryptjs';
-
+// import type { Session, JWT } from 'inspector/promises';
 const prisma = new PrismaClient();
 
 export const authOptions = {
@@ -38,6 +38,9 @@ export const authOptions = {
   ],
   callbacks: {
     jwt: async ({ token, user }) => {
+      console.log(typeof token, 'token')
+
+      
       if (user) {
         token.id = user?.id;
         token.role = user?.role;
