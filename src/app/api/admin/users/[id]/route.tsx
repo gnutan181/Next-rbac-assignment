@@ -4,16 +4,18 @@ import { NextResponse } from 'next/server';
 // import { authOptions } from '../../../../../auth/[...nextauth]/route';
 import { prisma } from '@/lib/prisma';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+// import type { AppRouteHandlerContext } from 'next/dist/server/web/types';
 
 export async function PUT(
   req: Request,
-  context: { params: { id: string } }
-  // { params }: { params: { id: string } }
+  // context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
-  const { params } = context; 
+  // const { params } = context; 
+  console.log(params, 'params in user role route');
   const session = await getServerSession(authOptions);
 
-  if (!session?.user?.id || session.user.role !== 'ADMIN') {
+  if (!session?.user?.id || session?.user?.role !== 'ADMIN') {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
   }
 
@@ -28,7 +30,7 @@ export async function PUT(
     }
 
     const user = await prisma.user.update({
-      where: { id: params.id },
+      where: { id: params?.id },
       data: { role },
     });
 
