@@ -25,7 +25,6 @@ export const authOptions:AuthOptions = {
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
         });
-      // console.log(user,"in")
         if (!user || !(await compare(credentials.password, user.password))) {
           throw new Error('Invalid email or password');
         }
@@ -40,22 +39,15 @@ export const authOptions:AuthOptions = {
     }),
   ],
   callbacks: {
-    // jwt: async ({ token, user }) => {
       jwt: async ({ token, user }: { token: JWT; user: User | null }) => {
-
-//       console.log(typeof token, '')
-// console.log(user, 'usfger')
       
       if (user) {
         token.id = user?.id;
         token.role = user?.role;
       }
-      console.log("token", token)
       return token;
     },
-    // session: async ({ session, token }) => {
       session: async ({ session, token }: { token:JWT,session: Session;  }) => {
-// console.log(token)
       if (session.user && token) {
         session.user.id = token?.id;
         session.user.role = token?.role;

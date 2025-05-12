@@ -7,7 +7,6 @@ import { authOptions } from '../auth/[...nextauth]/route';
 
 export async function GET() {
   const session = await getServerSession(authOptions);
-console.log(session, 'session in articles route');
   if (!session?.user?.id) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
   }
@@ -25,7 +24,6 @@ console.log(session, 'session in articles route');
       },
     });
   }
-  console.log(articles)
 
     return NextResponse.json(articles);
   } catch (error) {

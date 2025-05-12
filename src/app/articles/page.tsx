@@ -8,7 +8,6 @@ import Link from 'next/link';
 export default async function ArticlesPage() {
 
   const user = await getCurrentUser();
-console.log(user, 'user');
   if (!user) {
     return <div>Not authenticated</div>;
   }
@@ -25,10 +24,7 @@ console.log(user, 'user');
       orderBy: { createdAt: 'desc' },
     });
   }
-  // const formattedArticles = articles.map((article) => ({
-  //   ...article,
-  //   createdAt: new Date(article.createdAt).toISOString(),
-  // }));
+ 
   return (
     <>
     <Navbar user={user}>

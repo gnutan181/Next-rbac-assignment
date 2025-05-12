@@ -7,14 +7,11 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function ProfileForm({ user }: { user: User }) {
-  console.log(user, 'user in form');
-  const { newName, setNewName } = useUser();
-  console.log(newName, 'newName');
+  const {  setNewName } = useUser();
   const [name, setName] = useState(user?.name);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -45,7 +42,6 @@ export default function ProfileForm({ user }: { user: User }) {
     }
     
   };
-console.log(name,"wd",user.name,newName)
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
@@ -79,7 +75,7 @@ console.log(name,"wd",user.name,newName)
         <input
           id="name"
           type="text"
-          value={name || user.name || newName}
+          value={name}
           onChange={(e) => setName(e.target.value)}
           className=" text-black mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         />

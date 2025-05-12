@@ -43,7 +43,6 @@ export async function PUT(
       where: { id},
       data: { role },
     });
-// console.log(user)
     return NextResponse.json(user);
   } catch (error) {
     console.error('Error updating user role:', error);

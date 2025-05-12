@@ -10,16 +10,17 @@ interface UserContextType {
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export  const  UserProvider = ({ children }: { children: ReactNode }) => {
+  
   const user  = async()=>{
     return await getCurrentUser();
         }
+
   useEffect(()=>{
           user()
   },[])
   
    
   const [newName, setNewName] = useState("");
-
   return (
     <UserContext.Provider value={{ newName, setNewName }}>
       {children}

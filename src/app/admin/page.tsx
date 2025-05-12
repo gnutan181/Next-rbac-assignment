@@ -14,7 +14,6 @@ export default async function AdminDashboard() {
   const users = await prisma.user.findMany({
     orderBy: { createdAt: 'desc' },
   });
-// console.log(users, 'users in admin dashboard')
   return (
     <Navbar user={user}>
    
