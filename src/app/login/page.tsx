@@ -24,16 +24,31 @@ export default function LoginPage() {
         callbackUrl: '/articles' 
       });
 console.log(result, 'result');
-      if (result?.error) {
-        console.log("wefv")
-        setError(result.error);
-      } else {
-        console.log('wef')
-        // router.push('/articles');
-        router.replace('/articles');
-        // Force a router refresh to ensure the new route takes effect
-        router.refresh();
-      }
+if (!result) {
+  setError('Authentication failed');
+  return;
+}
+
+if (result?.error) {
+  setError(result.error);
+  return;
+}
+
+if (result?.ok) {
+  // Try using window.location as a fallback
+  window.location.href = '/articles';
+  return;
+}
+      // if (result?.error) {
+      //   console.log("wefv")
+      //   setError(result.error);
+      // } else {
+      //   console.log('wef')
+      //   // router.push('/articles');
+      //   router.replace('/articles');
+      //   // Force a router refresh to ensure the new route takes effect
+      //   router.refresh();
+      // }
     }catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message || 'An error occurred. Please try again.');

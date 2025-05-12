@@ -8,7 +8,7 @@ import Link from 'next/link';
 export default async function ArticlesPage() {
 
   const user = await getCurrentUser();
-
+console.log(user, 'user');
   if (!user) {
     return <div>Not authenticated</div>;
   }
