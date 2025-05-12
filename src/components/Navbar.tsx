@@ -59,7 +59,7 @@ export default function Navbar({ user, children }: NavbarProps) {
           {user ? (
             <>
               <span className="text-sm text-gray-500">
-                Hello, {newName} ({user?.role})
+                Hello, {newName || user?.name} ({user?.role})
               </span>
               <button
                 onClick={() => signOut()}
