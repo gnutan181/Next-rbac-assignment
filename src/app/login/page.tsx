@@ -20,14 +20,14 @@ export default function LoginPage() {
       const result = await signIn('credentials', {
         email,
         password,
-        redirect: false,
+        redirect: true,
         callbackUrl: '/articles' 
       });
 console.log(result, 'result');
-if (!result) {
-  setError('Authentication failed');
-  return;
-}
+// if (!result) {
+//   setError('Authentication failed');
+//   return;
+// }
 
 if (result?.error) {
   setError(result.error);
@@ -35,8 +35,9 @@ if (result?.error) {
 }
 
 if (result?.ok) {
-  // Try using window.location as a fallback
-  window.location.href = '/articles';
+          router.push('/articles');
+
+  // window.location.href = '/articles';
   return;
 }
       // if (result?.error) {
