@@ -10,31 +10,36 @@ A full-stack Next.js application with Role-Based Access Control (RBAC) using Nex
 - Article creation and management
 - Admin dashboard for user management
 
-## Prerequisites
-
-- Node.js (v18 or later)
-- npm or yarn
-- SQLite (or PostgreSQL if you prefer)
 
 ## Setup
 
 1. Clone the repository:
 
 git clone git clone https://github.com/gnutan181/Next-rbac-assignment
+### change directory
+
 cd nextjs-rbac
+### npm install
+
 npm install
 
 add .env File
-
+###
 npm run prisma:generate
+###
+
 npm run prisma:migrate
+###
+
 npm run prisma:seed
 
 npm run dev
 
-Seed Users
+#### Seed Users
 The database comes pre-seeded with two test accounts:
 
-Email	Password	Role
-admin@example.com	password123	ADMIN
-user@example.com	password123	USER
+#### admin
+admin@example.com	password123	
+
+#### user
+user@example.com	password123	
