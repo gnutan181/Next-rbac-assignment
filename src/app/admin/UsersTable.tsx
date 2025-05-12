@@ -11,7 +11,8 @@ export default function UsersTable({ users }: { users: User[] }) {
 
   const handleRoleChange = async (userId: string, newRole: 'USER' | 'ADMIN') => {
     setIsUpdating((prev) => ({ ...prev, [userId]: true }));
-
+console.log(userId,"userIdserId")
+console.log(typeof userId,"userIdserId")
     try {
       const response = await fetch(`/api/admin/users/${userId}`, {
         method: 'PUT',

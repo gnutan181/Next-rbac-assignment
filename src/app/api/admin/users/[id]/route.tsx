@@ -8,11 +8,11 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 export async function PUT(
   req: Request,
-  // context: { params: { id: string } }
   { params }: { params: { id: string } }
 ) {
-  // const { params } = context; 
-  console.log(params, 'params in user role route');
+
+  const { id } = await params
+
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id || session?.user?.role !== 'ADMIN') {
@@ -30,10 +30,10 @@ export async function PUT(
     }
 
     const user = await prisma.user.update({
-      where: { id: params?.id },
+      where: { id},
       data: { role },
     });
-
+console.log(user)
     return NextResponse.json(user);
   } catch (error) {
     console.error('Error updating user role:', error);
