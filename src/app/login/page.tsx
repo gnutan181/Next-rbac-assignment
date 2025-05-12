@@ -20,7 +20,8 @@ export default function LoginPage() {
       const result = await signIn('credentials', {
         email,
         password,
-        redirect: false
+        redirect: false,
+        callbackUrl: '/articles' 
       });
 console.log(result, 'result');
       if (result?.error) {
@@ -28,7 +29,10 @@ console.log(result, 'result');
         setError(result.error);
       } else {
         console.log('wef')
-        router.push('/articles');
+        // router.push('/articles');
+        router.replace('/articles');
+        // Force a router refresh to ensure the new route takes effect
+        router.refresh();
       }
     }catch (err: unknown) {
       if (err instanceof Error) {
