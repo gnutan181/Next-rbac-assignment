@@ -8,7 +8,7 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }
 ) {
 
   const { id } = await params
