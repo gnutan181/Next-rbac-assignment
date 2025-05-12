@@ -8,11 +8,21 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  // { params }: { params: { id: string } }
+  context: { params: { id: string } }
+
 ) {
 
-  const { id } = await params
+  // const { id } = await params
+  const { id } = context.params;
 
+  if (!id) {
+    return NextResponse.json(
+      { message: 'User ID is required' },
+      { status: 400 }
+    );
+
+}
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id || session?.user?.role !== 'ADMIN') {
@@ -33,7 +43,7 @@ export async function PUT(
       where: { id},
       data: { role },
     });
-console.log(user)
+// console.log(user)
     return NextResponse.json(user);
   } catch (error) {
     console.error('Error updating user role:', error);
