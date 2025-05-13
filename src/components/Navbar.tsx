@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import {  signOut } from 'next-auth/react';
 import { useUser } from '@/context/UserContext';
+import toast from 'react-hot-toast';
 // import { User } from '@prisma/client';
 interface NavbarProps {
   // user?: {
@@ -63,7 +64,15 @@ export default function Navbar({  children }: NavbarProps) {
                 Hello, {newName || user?.name} ({user?.role})
               </span>
               <button
-                onClick={() => signOut()}
+             
+                onClick={() =>{
+                  setTimeout(()=>{
+
+                    signOut();
+                  },200)
+                  toast.success("Logout Successfully")
+                }
+                  }
                 className="px-3 py-1 text-sm text-white bg-red-600 rounded-md hover:bg-red-700"
               >
                 Sign Out
