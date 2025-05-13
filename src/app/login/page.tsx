@@ -25,15 +25,13 @@ export default function LoginPage() {
         email,
         password,
         redirect: false,
-        // callbackUrl: '/articles' 
+       
       });
 
-console.log(result)
+// console.log(result)
    if (!result?.ok) {
-        // const errorData = await result?.json();
         toast.error(result?.error || 'Invalid login');
         setIsLoading(false);
-        // throw new Error(errorData.message || 'Registration failed');
         return;
       }
      
@@ -41,7 +39,7 @@ console.log(result)
       toast.success('Login successful!');
       setTimeout(()=>{
  router.push('/articles');
-      },1000)
+      },2200)
      
      
     }catch (err: unknown) {
