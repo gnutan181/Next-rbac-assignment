@@ -5,6 +5,7 @@ import { useUser } from '@/context/UserContext';
 import { User } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function ProfileForm({ user }: { user: User }) {
   const {  setNewName } = useUser();
@@ -17,6 +18,8 @@ export default function ProfileForm({ user }: { user: User }) {
     setIsSubmitting(true);
     setError('');
 
+      
+    
     try {
       const response = await fetch('/api/profile', {
         method: 'PUT',
@@ -25,11 +28,14 @@ export default function ProfileForm({ user }: { user: User }) {
         },
         body: JSON.stringify({ name }),
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to update profile');
+console.log(response)
+      if (!response?.ok) {
+        // throw new Error('Failed to update profile');
+        toast.error("Failed to update profile")
+        return;
       }
-     setNewName(name);
+      setNewName(name);
+      toast.success('Name updated');
       router.refresh();
     }catch (err: unknown) {
       if (err instanceof Error) {

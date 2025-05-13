@@ -4,6 +4,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 // import { hash } from 'bcryptjs';
 
 export default function RegisterPage() {
@@ -12,11 +13,12 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-
+setIsLoading(true); 
     try {
       const response = await fetch('/api/auth/register', {
         method: 'POST',
@@ -28,16 +30,29 @@ export default function RegisterPage() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Registration failed');
+        toast.error(errorData.message || 'Registration failed');
+        setIsLoading(false);
+        // throw new Error(errorData.message || 'Registration failed');
+      }else{
+        toast.success('Registration successful! Please log in.');
+        setTimeout(()=>{
+          
+   router.push('/login');
+        },2500)
       }
-
-      router.push('/login');
+// toast.promise(response, {
+//   loading: 'Loading',
+//   success: 'Got the data',
+//   error: 'Error when fetching',
+// });
+   
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message || 'An error occurred. Please try again.');
       } else {
         setError('An unknown error occurred. Please try again.');
       }
+       setIsLoading(false);
     }
   };
 
@@ -95,9 +110,16 @@ export default function RegisterPage() {
           <div>
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+               disabled={isLoading}
+              // className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white ${
+        isLoading 
+          ? 'bg-indigo-400 cursor-not-allowed' 
+          : 'bg-indigo-600 hover:bg-indigo-700'
+      } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
             >
-              Register
+                  {isLoading ? 'Registering...' : 'Register'}
+
             </button>
           </div>
         </form>

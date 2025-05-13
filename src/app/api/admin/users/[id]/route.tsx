@@ -8,7 +8,6 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 export async function PUT(
   req: Request,
-  // { params }: { params: { id: string } }
   context: { params: { id: string } }
 
 ) {
@@ -37,6 +36,23 @@ export async function PUT(
         { message: 'Invalid role provided' },
         { status: 400 }
       );
+    }
+     const currentUser = await prisma.user.findUnique({
+      where: {id},
+    });
+
+    // Prevent last admin demotion
+    if (currentUser?.role === 'ADMIN' && role === 'USER') {
+      const adminCount = await prisma.user.count({
+        where: { role: 'ADMIN' },
+      });
+
+      if (adminCount <= 1) {
+        return NextResponse.json(
+          { error: 'Cannot demote last admin' },
+          { status: 400 }
+        );
+      }
     }
 
     const user = await prisma.user.update({

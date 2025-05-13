@@ -24,7 +24,7 @@ export default async function ArticlesPage() {
       orderBy: { createdAt: 'desc' },
     });
   }
- 
+ console.log(articles)
   return (
     <>
     {/* <Navbar user={user}> */}

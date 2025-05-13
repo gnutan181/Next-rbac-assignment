@@ -3,6 +3,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function NewArticlePage() {
   const [title, setTitle] = useState('');
@@ -26,9 +27,10 @@ export default function NewArticlePage() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to create article');
+        toast.error('Failed to create article')
+        // throw new Error('Failed to create article');
       }
-
+toast.success("Article created")
       router.push('/articles');
     } catch (err: unknown) {
       if (err instanceof Error) {

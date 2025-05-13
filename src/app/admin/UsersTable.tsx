@@ -4,6 +4,7 @@
 import { User } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function UsersTable({ users }: { users: User[] }) {
   const router = useRouter();
@@ -20,11 +21,13 @@ export default function UsersTable({ users }: { users: User[] }) {
         },
         body: JSON.stringify({ role: newRole }),
       });
-
+console.log(response)
       if (!response.ok) {
-        throw new Error('Failed to update user role');
+        toast.error("Cannot demote last admin")
+        // throw new Error('Failed to update user role');
+        return ;
       }
-
+      toast.success(`Role changed to ${newRole}`)
       router.refresh();
     } catch (error) {
       console.error('Error updating user role:', error);
