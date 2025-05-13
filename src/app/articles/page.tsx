@@ -27,7 +27,7 @@ export default async function ArticlesPage() {
  
   return (
     <>
-    <Navbar user={user}>
+    <Navbar>
 
 
     <div className="max-w-4xl mx-auto p-4">

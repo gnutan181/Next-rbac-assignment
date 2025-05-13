@@ -2,12 +2,10 @@
 // import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-// import Navbar from '@/components/Navbar';
-// import { SessionProvider } from 'next-auth/react';
-// import { getCurrentUser } from '@/lib/auth';
+
 import "../styles/globals.css";
+import { SessionProvider } from 'next-auth/react';
 import { UserProvider } from '@/context/UserContext';
-// import Navbar from '@/components/Navbar';
 const inter = Inter({ subsets: ['latin'] });
 
 
@@ -27,11 +25,15 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main className="container mx-auto px-4 py-8">  
+
+        <SessionProvider>
     <UserProvider>
+      
+      
       {/* <Navbar /> */}
           {children}
           </UserProvider>
-
+  </SessionProvider>
      </main>
       </body>
     </html>
