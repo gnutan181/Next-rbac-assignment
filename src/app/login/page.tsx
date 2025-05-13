@@ -39,7 +39,7 @@ export default function LoginPage() {
       toast.success('Login successful!');
       setTimeout(()=>{
  router.push('/articles');
-      },2200)
+      },1600)
      
      
     }catch (err: unknown) {
