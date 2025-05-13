@@ -1,42 +1,58 @@
 // src/app/admin/UsersTable.tsx
 'use client';
 
+import Modal from '@/components/Modal';
 import { User } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-
 export default function UsersTable({ users }: { users: User[] }) {
-  const router = useRouter();
-  const [isUpdating, setIsUpdating] = useState<Record<string, boolean>>({});
 
-  const handleRoleChange = async (userId: string, newRole: 'USER' | 'ADMIN') => {
-    setIsUpdating((prev) => ({ ...prev, [userId]: true }));
+const router = useRouter();
+  const [isUpdating, setIsUpdating] = useState<Record<string, boolean>>({});
+  const [modalOpen, setModalOpen] = useState(false);
+  const [pendingChange, setPendingChange] = useState<{
+    userId: string;
+    newRole: 'USER' | 'ADMIN';
+    userName: string;
+  } | null>(null);
+
+  const handleRoleChange = async (userId: string, newRole: 'USER' | 'ADMIN', userName: string) => {
+    setPendingChange({ userId, newRole, userName });
+    setModalOpen(true);
+  };
+
+  const confirmRoleChange = async () => {
+    if (!pendingChange) return;
+    
+    setIsUpdating((prev) => ({ ...prev, [pendingChange.userId]: true }));
+    setModalOpen(false);
 
     try {
-      const response = await fetch(`/api/admin/users/${userId}`, {
+      const response = await fetch(`/api/admin/users/${pendingChange.userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ role: newRole }),
+        body: JSON.stringify({ role: pendingChange.newRole }),
       });
-console.log(response)
+
       if (!response.ok) {
-        toast.error("Cannot demote last admin")
-        // throw new Error('Failed to update user role');
-        return ;
+        toast.error("Cannot demote last admin");
+        return;
       }
-      toast.success(`Role changed to ${newRole}`)
+      
+      toast.success(`Role changed to ${pendingChange.newRole}`);
       router.refresh();
     } catch (error) {
       console.error('Error updating user role:', error);
     } finally {
-      setIsUpdating((prev) => ({ ...prev, [userId]: false }));
+      setIsUpdating((prev) => ({ ...prev, [pendingChange.userId]: false }));
+      setPendingChange(null);
     }
   };
-
   return (
+    <>
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
@@ -72,7 +88,9 @@ console.log(response)
                   <select
                     value={user.role}
                     onChange={(e) =>
-                      handleRoleChange(user.id, e.target.value as 'USER' | 'ADMIN')
+                      // handleRoleChange(user.id, e.target.value as 'USER' | 'ADMIN')
+                                  handleRoleChange(user.id, e.target.value as 'USER' | 'ADMIN', user.name || '')
+
                     }
                     disabled={isUpdating[user.id]}
                     className="border border-gray-300 rounded-md px-2 py-1 text-sm"
@@ -81,11 +99,23 @@ console.log(response)
                     <option value="ADMIN">ADMIN</option>
                   </select>
                 </div>
+
               </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+     <Modal
+        isOpen={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+          setPendingChange(null);
+        }}
+        onConfirm={confirmRoleChange}
+        title="Confirm Role Change"
+        message={`Are you sure you want to change ${pendingChange?.userName}'s role to ${pendingChange?.newRole}? This action cannot be undone.`}
+      />
+      </>
   );
 }

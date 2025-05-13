@@ -13,7 +13,7 @@ export async function PUT(
 ) {
 
   // const { id } = await params
-  const { id } = context.params;
+  const { id } = await context.params;
 
   if (!id) {
     return NextResponse.json(
