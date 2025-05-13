@@ -39,7 +39,10 @@ console.log(result)
      
       
       toast.success('Login successful!');
-      router.push('/articles');
+      setTimeout(()=>{
+ router.push('/articles');
+      },1000)
+     
      
     }catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
