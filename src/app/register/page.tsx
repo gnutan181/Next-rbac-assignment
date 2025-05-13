@@ -34,7 +34,7 @@ setIsLoading(true);
         setIsLoading(false);
         // throw new Error(errorData.message || 'Registration failed');
       }else{
-        toast.success('Registration successful! Please log in.');
+        toast.success(`Registration successful ${name}! Please log in.`);
         setTimeout(()=>{
           
    router.push('/login');
