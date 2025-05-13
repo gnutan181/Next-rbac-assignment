@@ -38,7 +38,9 @@ const router = useRouter();
       });
 
       if (!response.ok) {
-        toast.error("Cannot demote last admin");
+        // console.log(response)
+        const data = await response.json()
+        toast.error(data?.error ||"Cannot demote last admin");
         return;
       }
       

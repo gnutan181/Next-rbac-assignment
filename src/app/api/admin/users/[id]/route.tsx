@@ -14,13 +14,11 @@ export async function PUT(
 
   // const { id } = await params
   const { id } = await context.params;
-
   if (!id) {
     return NextResponse.json(
       { message: 'User ID is required' },
       { status: 400 }
     );
-
 }
   const session = await getServerSession(authOptions);
 
@@ -40,7 +38,12 @@ export async function PUT(
      const currentUser = await prisma.user.findUnique({
       where: {id},
     });
-
+if(currentUser?.role === 'ADMIN' &&currentUser?.email === 'admin@example.com'){
+    return NextResponse.json(
+          { error: 'Cannot change role of super admin' },
+          { status: 400 }
+        );
+}
     // Prevent last admin demotion
     if (currentUser?.role === 'ADMIN' && role === 'USER') {
       const adminCount = await prisma.user.count({
