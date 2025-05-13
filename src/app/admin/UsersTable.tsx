@@ -116,7 +116,7 @@ const router = useRouter();
         }}
         onConfirm={confirmRoleChange}
         title="Confirm Role Change"
-        message={`Are you sure you want to change ${pendingChange?.userName}'s role to ${pendingChange?.newRole}? This action cannot be undone.`}
+        message={`Are you sure you want to change ${pendingChange?.userName}'s role to ${pendingChange?.newRole}? This action is serious!`}
       />
       </>
   );
