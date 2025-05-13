@@ -1,11 +1,14 @@
-// src/app/layout.tsx
-// import './globals.css';
+// "use client";
+
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-
+// import Navbar from '@/components/Navbar';
+// import { SessionProvider } from 'next-auth/react';
+// import { getCurrentUser } from '@/lib/auth';
 import "../styles/globals.css";
-import { SessionProvider } from 'next-auth/react';
-import { UserProvider } from '@/context/UserContext';
+
+import Providers from '@/components/Providers';
+
 const inter = Inter({ subsets: ['latin'] });
 
 
@@ -14,26 +17,29 @@ export const metadata: Metadata = {
   description: 'Role-Based Access Control with Next.js',
 };
 
-export default async function RootLayout({
+export default  function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  
+
 
   return (
     <html lang="en">
       <body className={inter.className}>
         <main className="container mx-auto px-4 py-8">  
+          {/* <SessionProvider>
 
-        <SessionProvider>
-    <UserProvider>
-      
-      
-      {/* <Navbar /> */}
+    <UserProvider  >
+    <Navbar /> */}
+<Providers>
+
           {children}
-          </UserProvider>
-  </SessionProvider>
+</Providers>
+   
+          {/* </UserProvider>
+          </SessionProvider> */}
+
      </main>
       </body>
     </html>

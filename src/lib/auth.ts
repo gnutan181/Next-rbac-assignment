@@ -9,6 +9,7 @@ export const getSession = async () => {
 
 export const getCurrentUser = async () => {
   const session = await getSession();
+  // console.log(session, 'session');
   return session?.user;
 };
 export const checkArticleAuthorization = async (articleId: string, userId: string) => {

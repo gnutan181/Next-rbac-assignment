@@ -1,5 +1,5 @@
 // src/app/admin/articles/page.tsx
-import Navbar from '@/components/Navbar';
+// import Navbar from '@/components/Navbar';
 import { getCurrentUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
@@ -26,7 +26,7 @@ export default async function AdminArticlesPage() {
   //   createdAt: new Date(article.createdAt).toISOString(),
   // }));
   return (
-    <Navbar user={user}>
+   
       
     <div className="max-w-4xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-6">All Articles</h1>
@@ -45,6 +45,6 @@ export default async function AdminArticlesPage() {
         ))}
       </div>
     </div>
-    </Navbar>
+   
   );
 }

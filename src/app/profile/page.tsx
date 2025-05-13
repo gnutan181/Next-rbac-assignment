@@ -2,7 +2,7 @@
 import { getCurrentUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import ProfileForm from './ProfileForm';
-import Navbar from '@/components/Navbar';
+// import Navbar from '@/components/Navbar';
 // import { useEffect } from 'react';
 
 export default async function ProfilePage() {
@@ -20,13 +20,13 @@ export default async function ProfilePage() {
     return <div>User not found</div>;
   }
   return (
-        <Navbar >
+      
     <div className="max-w-2xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-6 text-black">Profile</h1>
       <div className="bg-white shadow rounded-lg p-6">
         <ProfileForm user={dbUser} />
       </div>
     </div>
-    </Navbar>
+  
   );
 }

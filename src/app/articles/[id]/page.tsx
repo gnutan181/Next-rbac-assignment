@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 export default async function ArticlePage( context: { params: { id: string } }) {
      
-  const { id } = context.params;
+  const { id } = await context.params;
   const user = await getCurrentUser();
   
   if (!user) {
@@ -19,7 +19,7 @@ export default async function ArticlePage( context: { params: { id: string } }) 
   });
 
 
-console.log(article,"werf")
+// console.log(article,"werf")
   // Check if user is author or admin
   const isAuthorized = user.role === 'ADMIN' || article?.authorId === user.id;
   

@@ -1,5 +1,5 @@
 // src/app/articles/page.tsx
-import Navbar from '@/components/Navbar';
+// import Navbar from '@/components/Navbar';
 import { getCurrentUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
@@ -27,7 +27,7 @@ export default async function ArticlesPage() {
  
   return (
     <>
-    <Navbar>
+    {/* <Navbar user={user}> */}
 
 
     <div className="max-w-4xl mx-auto p-4">
@@ -61,7 +61,7 @@ export default async function ArticlesPage() {
         </div>
       )}
     </div>
-    </Navbar>
+    {/* </Navbar> */}
     </>
   );
 }

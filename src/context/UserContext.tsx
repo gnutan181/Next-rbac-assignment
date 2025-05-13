@@ -1,6 +1,6 @@
 "use client";
-import { getCurrentUser } from '@/lib/auth';
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+
+import React, { createContext, useContext, useState, ReactNode,  } from 'react';
 
 interface UserContextType {
     newName: string;
@@ -9,18 +9,18 @@ interface UserContextType {
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export  const  UserProvider = ({ children }: { children: ReactNode }) => {
+export  const  UserProvider = ({user, children }: {  user?: {
+  id?: string;
+    name?: string | null;
+    role?: string;
+    email?: string | null;
+    // role?: string;
+  } | null; children: ReactNode }) => {
   
-  const user  = async()=>{
-    return await getCurrentUser();
-        }
-
-  useEffect(()=>{
-          user()
-  },[])
+  const [newName, setNewName] = useState(user?.name || '');
+ 
   
    
-  const [newName, setNewName] = useState("");
   return (
     <UserContext.Provider value={{ newName, setNewName }}>
       {children}

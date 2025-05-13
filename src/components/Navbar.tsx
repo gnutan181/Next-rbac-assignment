@@ -1,27 +1,28 @@
 // src/components/Navbar.tsx
 'use client';
+import { useSession } from 'next-auth/react';
 
 import Link from 'next/link';
 import {  signOut } from 'next-auth/react';
 import { useUser } from '@/context/UserContext';
 // import { User } from '@prisma/client';
 interface NavbarProps {
-  user?: {
-    name?: string | null;
-    role?: string;
-  } | null;
+  // user?: {
+  //   name?: string | null;
+  //   role?: string;
+  // } | null;
   children?: React.ReactNode; // Add children to the props
 }
-export default function Navbar({ user, children }: NavbarProps) {
+export default function Navbar({  children }: NavbarProps) {
   const { newName } = useUser();
-
+    const { data: session } = useSession();
+  const user = session?.user;
+// console.log(user)
   return (
     <nav className="bg-white shadow-sm">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <div className="flex space-x-4">
-          {/* <Link href="/" className="font-medium text-gray-700 hover:text-indigo-600">
-            Home
-          </Link> */}
+      
           {user && (
             <>
               <Link
